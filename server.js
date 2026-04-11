@@ -11,6 +11,7 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejec
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
+// Health check
 app.get("/", async (req, res) => {
   try {
     await pool.query("SELECT 1");
@@ -20,6 +21,7 @@ app.get("/", async (req, res) => {
   }
 });
 
+// GET actividades
 app.get("/api/actividades", async (req, res) => {
   try {
     const r = await pool.query("SELECT * FROM actividades ORDER BY id");
@@ -27,6 +29,7 @@ app.get("/api/actividades", async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// POST actividad
 app.post("/api/actividades", async (req, res) => {
   try {
     const { nombre, descripcion, precio_base, color, activa } = req.body;
@@ -38,6 +41,7 @@ app.post("/api/actividades", async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// PUT actividad
 app.put("/api/actividades/:id", async (req, res) => {
   try {
     const { nombre, descripcion, precio_base, color, activa } = req.body;
@@ -49,6 +53,7 @@ app.put("/api/actividades/:id", async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// GET horarios
 app.get("/api/horarios", async (req, res) => {
   try {
     const { actividad_id } = req.query;
@@ -61,6 +66,7 @@ app.get("/api/horarios", async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// POST horario
 app.post("/api/horarios", async (req, res) => {
   try {
     const { actividad_id, dia_semana, hora_inicio, hora_fin, plazas_max, monitor, nivel, recurrencia } = req.body;
@@ -72,6 +78,7 @@ app.post("/api/horarios", async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// PUT horario
 app.put("/api/horarios/:id", async (req, res) => {
   try {
     const { actividad_id, dia_semana, hora_inicio, hora_fin, plazas_max, monitor, nivel, recurrencia } = req.body;
@@ -83,6 +90,7 @@ app.put("/api/horarios/:id", async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// DELETE horario
 app.delete("/api/horarios/:id", async (req, res) => {
   try {
     await pool.query("UPDATE horarios SET activo=false WHERE id=$1", [req.params.id]);
@@ -90,6 +98,7 @@ app.delete("/api/horarios/:id", async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// GET reservas
 app.get("/api/reservas", async (req, res) => {
   try {
     const r = await pool.query(
@@ -99,6 +108,7 @@ app.get("/api/reservas", async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// POST reserva
 app.post("/api/reservas", async (req, res) => {
   try {
     const { horario_id, actividad_id, nombre, email, telefono, personas, nivel, notas, fecha_sesion, total, stripe_payment_id } = req.body;
@@ -110,6 +120,7 @@ app.post("/api/reservas", async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// POST crear pago Stripe
 app.post("/api/crear-pago", async (req, res) => {
   try {
     const { amount, currency, metadata } = req.body;
@@ -122,6 +133,7 @@ app.post("/api/crear-pago", async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// POST enviar email Brevo
 app.post("/api/enviar-email", async (req, res) => {
   try {
     const { nombre, email, actividad, dia, hora, personas, total } = req.body;
