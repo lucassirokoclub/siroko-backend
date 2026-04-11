@@ -56,7 +56,17 @@ app.put("/api/actividades/:id", async (req, res) => {
     res.json(r.rows[0]);
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
-
+// PUT horario
+app.put("/api/horarios/:id", async (req, res) => {
+  try {
+    const { actividad_id, dia_semana, hora_inicio, hora_fin, plazas_max, monitor, nivel, recurrencia } = req.body;
+    const r = await pool.query(
+      "UPDATE horarios SET actividad_id=$1, dia_semana=$2, hora_inicio=$3, hora_fin=$4, plazas_max=$5, monitor=$6, nivel=$7, recurrencia=$8 WHERE id=$9 RETURNING *",
+      [actividad_id, dia_semana, hora_inicio, hora_fin, plazas_max, monitor, nivel, recurrencia, req.params.id]
+    );
+    res.json(r.rows[0]);
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
 // GET horarios por actividad
 app.get("/api/horarios", async (req, res) => {
   try {
