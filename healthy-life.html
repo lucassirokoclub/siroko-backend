@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Siroko Healthy Life · Playa de San Lorenzo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-deep:   #0D2E23;
+    --green-dark:   #0F4A35;
+    --green-mid:    #1D9E75;
+    --green-light:  #9FE1CB;
+    --green-pale:   #E1F5EE;
+    --sand:         #F5F0E8;
+    --sand-dark:    #E8DFC8;
+    --off-white:    #FAFAF8;
+    --text-dark:    #111810;
+    --text-mid:     #4A5E54;
+    --text-light:   #8AA898;
+    --wave:         #1A7A5E;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(13,46,35,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(159,225,203,0.15);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    color: var(--green-light);
+  }
+  .nav-logo span { color: white; }
+  .nav-cta {
+    background: var(--green-mid);
+    color: white;
+    border: none;
+    padding: 0.55rem 1.3rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: #17B885; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--green-deep);
+    position: relative;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 0 5rem;
+    overflow: hidden;
+  }
+
+  /* Wave SVG background */
+  .hero-waves {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 55%;
+    opacity: 0.08;
+  }
+
+  /* Animated circles */
+  .hero-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(159,225,203,0.2);
+    animation: pulse 8s ease-in-out infinite;
+  }
+  .hero-circle:nth-child(1) { width: 600px; height: 600px; top: -200px; right: -150px; animation-delay: 0s; }
+  .hero-circle:nth-child(2) { width: 400px; height: 400px; top: -100px; right: -50px; animation-delay: -2s; }
+  .hero-circle:nth-child(3) { width: 200px; height: 200px; top: 0px; right: 50px; animation-delay: -4s; }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.2; }
+    50% { transform: scale(1.05); opacity: 0.35; }
+  }
+
+  /* Grain overlay */
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; opacity: 0.4;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 clamp(1.5rem, 6vw, 7rem);
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(29,158,117,0.2);
+    border: 1px solid rgba(29,158,117,0.4);
+    color: var(--green-light);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--green-mid);
+    border-radius: 50%;
+    animation: blink 2s ease infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4.5rem, 14vw, 11rem);
+    line-height: 0.9;
+    color: white;
+    letter-spacing: 0.02em;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero-title .accent { color: var(--green-light); }
+  .hero-title .italic {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 0.75em;
+    color: var(--green-light);
+    display: block;
+  }
+
+  .hero-sub {
+    margin-top: 1.5rem;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: rgba(159,225,203,0.8);
+    max-width: 500px;
+    line-height: 1.65;
+    font-weight: 300;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-pills {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-top: 2rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .pill {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.75);
+    font-size: 0.82rem;
+    padding: 0.45rem 1rem;
+    border-radius: 100px;
+  }
+  .pill strong { color: white; font-weight: 500; }
+
+  .hero-cta-row {
+    display: flex; align-items: center; gap: 1.5rem;
+    margin-top: 2.5rem;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .btn-primary {
+    background: var(--green-mid);
+    color: white;
+    border: none;
+    padding: 1rem 2.2rem;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-primary:hover { background: #17B885; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(29,158,117,0.4); }
+  .btn-primary .arrow { transition: transform 0.2s; }
+  .btn-primary:hover .arrow { transform: translateX(3px); }
+
+  .hero-note {
+    font-size: 0.82rem;
+    color: rgba(159,225,203,0.6);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SCROLL BAND ── */
+  .scroll-band {
+    background: var(--green-mid);
+    padding: 0.9rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .scroll-band-inner {
+    display: inline-flex; gap: 3rem;
+    animation: marquee 20s linear infinite;
+  }
+  .scroll-band span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: white;
+    opacity: 0.85;
+  }
+  .scroll-band span.dot { color: var(--green-deep); font-size: 1.5rem; line-height: 0; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 7rem); }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.15;
+    color: var(--text-dark);
+  }
+  .section-title em { font-style: italic; color: var(--green-mid); }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    background: var(--sand);
+  }
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .how-card {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .how-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+  .how-card-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: var(--green-pale);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .how-card-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .how-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+  }
+  .how-card p {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+  .how-card-accent {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--green-mid);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+  .how-card:hover .how-card-accent { transform: scaleX(1); }
+
+  /* ── TIMELINE ── */
+  .timeline-section { background: var(--green-deep); }
+  .timeline-section .section-label { color: var(--green-light); }
+  .timeline-section .section-title { color: white; }
+  .timeline-section .section-title em { color: var(--green-light); }
+
+  .timeline {
+    margin-top: 3rem;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5.5rem;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--green-mid), transparent);
+  }
+  .tl-item {
+    display: flex; gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .tl-item.visible { opacity: 1; transform: translateX(0); }
+  .tl-time {
+    flex-shrink: 0;
+    width: 5rem;
+    text-align: right;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    color: var(--green-mid);
+    padding-top: 0.1rem;
+  }
+  .tl-dot {
+    flex-shrink: 0;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--green-mid);
+    margin-top: 0.4rem;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 0 4px rgba(29,158,117,0.2);
+  }
+  .tl-body { flex: 1; }
+  .tl-body h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 0.25rem;
+  }
+  .tl-body p {
+    font-size: 0.88rem;
+    color: rgba(159,225,203,0.7);
+    line-height: 1.6;
+  }
+
+  /* ── PRICE ── */
+  .price-section {
+    background: var(--off-white);
+  }
+  .price-cards {
+    display: flex; gap: 1.5rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+  .price-card {
+    flex: 1; min-width: 240px;
+    background: white;
+    border: 1.5px solid var(--sand-dark);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .price-card:hover { border-color: var(--green-mid); transform: translateY(-3px); }
+  .price-card.featured {
+    background: var(--green-deep);
+    border-color: var(--green-mid);
+  }
+  .price-badge {
+    display: inline-block;
+    background: var(--green-pale);
+    color: var(--green-dark);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    margin-bottom: 1.2rem;
+  }
+  .price-card.featured .price-badge {
+    background: rgba(29,158,117,0.25);
+    color: var(--green-light);
+  }
+  .price-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: var(--text-dark);
+    line-height: 1;
+  }
+  .price-card.featured .price-amount { color: white; }
+  .price-amount sup { font-size: 1.5rem; vertical-align: super; }
+  .price-period {
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    margin-top: 0.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .price-card.featured .price-period { color: var(--green-light); opacity: 0.7; }
+  .price-includes {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .price-includes li {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.88rem;
+    color: var(--text-mid);
+  }
+  .price-card.featured .price-includes li { color: rgba(159,225,203,0.8); }
+  .price-includes li::before {
+    content: '✓';
+    color: var(--green-mid);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ── FORM ── */
+  .form-section {
+    background: var(--sand);
+    scroll-margin-top: 80px;
+  }
+  .form-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  @media (max-width: 768px) {
+    .form-layout { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  .form-left h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.15;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+  }
+  .form-left h2 em { font-style: italic; color: var(--green-mid); }
+  .form-left p {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .social-proof {
+    display: flex; align-items: center; gap: 1rem;
+    margin-top: 2rem;
+  }
+  .avatars {
+    display: flex;
+  }
+  .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--sand);
+    margin-left: -8px;
+    font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--green-pale);
+  }
+  .avatar:first-child { margin-left: 0; }
+  .social-proof-text {
+    font-size: 0.85rem;
+    color: var(--text-mid);
+  }
+  .social-proof-text strong {
+    color: var(--text-dark);
+    font-weight: 500;
+  }
+
+  /* Form */
+  .form-card {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+  }
+  .form-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-dark);
+  }
+  .form-card .form-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    margin-bottom: 1.75rem;
+  }
+
+  .form-group { margin-bottom: 1.1rem; }
+  .form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--text-mid);
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--sand-dark);
+    border-radius: 0.75rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    background: var(--off-white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--green-mid);
+    box-shadow: 0 0 0 3px rgba(29,158,117,0.12);
+    background: white;
+  }
+  .form-group textarea { resize: none; height: 90px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+  .form-check {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  .form-check input[type="checkbox"] {
+    width: 18px; height: 18px;
+    flex-shrink: 0; margin-top: 2px;
+    accent-color: var(--green-mid);
+  }
+  .form-check label {
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    line-height: 1.5;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--green-deep);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 1.25rem;
+    transition: background 0.2s, transform 0.15s;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .btn-submit:hover { background: var(--green-dark); transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+
+  .form-disclaimer {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    text-align: center;
+    margin-top: 0.75rem;
+    line-height: 1.5;
+  }
+
+  /* Success state */
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  .form-success.show { display: block; }
+  .form-success .success-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+  }
+  .form-success h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+  }
+  .form-success p {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  /* ── FAQ ── */
+  .faq-section { background: var(--off-white); }
+  .faq-list { margin-top: 2.5rem; max-width: 680px; }
+  .faq-item {
+    border-bottom: 1px solid var(--sand-dark);
+    padding: 1.25rem 0;
+  }
+  .faq-q {
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    gap: 1rem;
+    user-select: none;
+  }
+  .faq-q .icon {
+    flex-shrink: 0;
+    width: 24px; height: 24px;
+    background: var(--green-pale);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    color: var(--green-mid);
+    transition: transform 0.3s, background 0.2s;
+  }
+  .faq-item.open .faq-q .icon { transform: rotate(45deg); background: var(--green-mid); color: white; }
+  .faq-a {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+  }
+  .faq-item.open .faq-a { max-height: 200px; padding-top: 0.75rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--green-deep);
+    padding: 3rem clamp(1.5rem, 6vw, 7rem);
+    display: flex; flex-wrap: wrap; gap: 1rem;
+    align-items: center; justify-content: space-between;
+    border-top: 1px solid rgba(159,225,203,0.15);
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    color: var(--green-light);
+  }
+  .footer-logo span { color: white; }
+  .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .footer-links a {
+    font-size: 0.82rem;
+    color: rgba(159,225,203,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--green-light); }
+  .footer-copy {
+    font-size: 0.78rem;
+    color: rgba(159,225,203,0.35);
+  }
+
+  /* ── UTILS ── */
+  @media (max-width: 640px) {
+    .how-grid { grid-template-columns: 1fr; }
+    .price-cards { flex-direction: column; }
+    .form-row { grid-template-columns: 1fr; }
+    .timeline::before { left: 0; }
+    .tl-time { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>SIROKO</span> HEALTHY LIFE</div>
+  <a href="#inscribete" class="nav-cta">Me apunto →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-circle"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-circle"></div>
+
+  <svg class="hero-waves" viewBox="0 0 1440 320" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,192 C360,288 720,96 1080,192 C1260,240 1380,220 1440,210 L1440,320 L0,320 Z" fill="#1D9E75"/>
+    <path d="M0,240 C240,200 480,280 720,240 C960,200 1200,260 1440,240 L1440,320 L0,320 Z" fill="#0F4A35"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-tag">Programa de bienestar activo · Equipo Siroko</div>
+    <h1 class="hero-title">
+      SIROKO<br>
+      HEALTHY<br>
+      <span class="italic">Life</span>
+    </h1>
+    <p class="hero-sub">
+      Entrena en la playa con compañeros, desconecta de la semana y termina tomando algo juntos. Cada sábado y domingo.
+    </p>
+    <div class="hero-pills">
+      <span class="pill">📍 <strong>Escalera nº 12</strong> · Playa de San Lorenzo</span>
+      <span class="pill">🕐 <strong>11:00 – 12:30</strong> · Sáb & Dom</span>
+      <span class="pill">💰 <strong>desde 15€</strong> · todo incluido</span>
+    </div>
+    <div class="hero-cta-row">
+      <a href="#inscribete" class="btn-primary">Reservar mi sitio <span class="arrow">→</span></a>
+      <span class="hero-note">Sin nivel mínimo. Sin inscripción previa.</span>
+    </div>
+  </div>
+</section>
+
+<!-- SCROLL BAND -->
+<div class="scroll-band" aria-hidden="true">
+  <div class="scroll-band-inner">
+    <span>ENTRENA</span><span class="dot">·</span>
+    <span>CONECTA</span><span class="dot">·</span>
+    <span>DISFRUTA</span><span class="dot">·</span>
+    <span>PLAYA DE SAN LORENZO</span><span class="dot">·</span>
+    <span>SIROKO OUTDOOR CLUB</span><span class="dot">·</span>
+    <span>SÁBADOS Y DOMINGOS</span><span class="dot">·</span>
+    <span>ENTRENA</span><span class="dot">·</span>
+    <span>CONECTA</span><span class="dot">·</span>
+    <span>DISFRUTA</span><span class="dot">·</span>
+    <span>PLAYA DE SAN LORENZO</span><span class="dot">·</span>
+    <span>SIROKO OUTDOOR CLUB</span><span class="dot">·</span>
+    <span>SÁBADOS Y DOMINGOS</span><span class="dot">·</span>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="como-funciona">
+  <p class="section-label">El plan</p>
+  <h2 class="section-title">Simple. Directo.<br><em>Sin excusas.</em></h2>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-card-num">01</div>
+      <div class="how-card-icon">🏃</div>
+      <h3>Entrena</h3>
+      <p>1h 30min al aire libre en la Playa de San Lorenzo. Funcional, Voley Playa, Paddle Surf, Yoga… según el día. Para todos los niveles.</p>
+      <div class="how-card-accent"></div>
+    </div>
+    <div class="how-card">
+      <div class="how-card-num">02</div>
+      <div class="how-card-icon">🤝</div>
+      <h3>Conecta</h3>
+      <p>Después del entreno, tomar algo juntos. El momento social que convierte compañeros en comunidad. El vermú del domingo lo confirma.</p>
+      <div class="how-card-accent"></div>
+    </div>
+    <div class="how-card">
+      <div class="how-card-num">03</div>
+      <div class="how-card-icon">⚡</div>
+      <h3>Disfruta</h3>
+      <p>Organizado por Siroko Outdoor Club con monitores profesionales. Tú solo preocúpate de aparecer. Nosotros ponemos el resto.</p>
+      <div class="how-card-accent"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section" id="sesion">
+  <p class="section-label">Así es una sesión</p>
+  <h2 class="section-title">Un sábado<br><em>tipo.</em></h2>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-time">11:00</div>
+      <div class="tl-dot"></div>
+      <div class="tl-body">
+        <h4>Punto de encuentro</h4>
+        <p>Nos juntamos frente a la Escalera nº 12. Bienvenida y calentamiento dinámico. No hace falta llegar antes.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">11:15</div>
+      <div class="tl-dot"></div>
+      <div class="tl-body">
+        <h4>Sesión de entrenamiento</h4>
+        <p>1h 15min de actividad — funcional, beach sports o yoga en la playa. El monitor adapta el nivel al grupo.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">12:15</div>
+      <div class="tl-dot"></div>
+      <div class="tl-body">
+        <h4>Cool down + foto de grupo</h4>
+        <p>Estiramientos en la orilla y foto para el grupo. El momento más compartido en redes.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">12:30</div>
+      <div class="tl-dot"></div>
+      <div class="tl-body">
+        <h4>Tomar algo juntos</h4>
+        <p>Café, zumo o vermú — el momento social que convierte una clase en un plan. Incluido en el precio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FORM -->
+<section class="form-section" id="inscribete">
+  <p class="section-label">Apúntate</p>
+  <div class="form-layout">
+    <div class="form-left">
+      <h2>¿Vienes el próximo<br><em>fin de semana?</em></h2>
+      <p>Rellena el formulario y te mandamos la confirmación con todos los detalles. Sin compromiso — si un día no puedes venir, no pasa nada.</p>
+      <div style="background: white; border-radius: 1.25rem; padding: 1.5rem; border: 1px solid var(--sand-dark);">
+        <p style="font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 1rem;">Próxima sesión</p>
+        <p style="font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--text-dark); margin-bottom: 0.25rem;">Viernes 1 de Mayo</p>
+        <p style="font-size: 0.88rem; color: var(--text-mid);">11:00 – 12:30 · Escalera nº 12, San Lorenzo</p>
+        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--sand-dark); display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <span style="background: var(--green-pale); color: var(--green-dark); font-size: 0.75rem; font-weight: 500; padding: 0.3rem 0.7rem; border-radius: 100px;">🏃 Funcional</span>
+          <span style="background: var(--green-pale); color: var(--green-dark); font-size: 0.75rem; font-weight: 500; padding: 0.3rem 0.7rem; border-radius: 100px;">🌊 Playa</span>
+          <span style="background: var(--green-pale); color: var(--green-dark); font-size: 0.75rem; font-weight: 500; padding: 0.3rem 0.7rem; border-radius: 100px;">☕ After workout</span>
+        </div>
+      </div>
+      <div class="social-proof">
+        <div class="avatars">
+          <div class="avatar">🧑</div>
+          <div class="avatar">👩</div>
+          <div class="avatar">🧔</div>
+          <div class="avatar">👩‍🦰</div>
+        </div>
+        <p class="social-proof-text"><strong>Ya se han apuntado varios compañeros</strong><br>del equipo Siroko para esta sesión.</p>
+      </div>
+    </div>
+
+    <div style="
+        background: white;
+        border-radius: 1.5rem;
+        overflow: hidden;
+        border: 1px solid rgba(0,0,0,0.06);
+        box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+      ">
+      <iframe
+        src="https://docs.google.com/forms/d/1awnzbYqAyYWmA1ye30QskbUWUxOooL8sfHJNVb1kZ78/viewform?embedded=true"
+        title="Formulario de inscripción Siroko Healthy Life"
+        width="100%"
+        height="720"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        style="display: block; min-height: 720px;"
+        loading="lazy"
+      >Cargando formulario…</iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <p class="section-label">FAQ</p>
+  <h2 class="section-title">Preguntas<br><em>frecuentes.</em></h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">
+        ¿Necesito tener un nivel físico concreto?
+        <span class="icon">+</span>
+      </div>
+      <div class="faq-a">Para nada. Las sesiones están pensadas para todos los niveles — el monitor adapta la intensidad al grupo. Si llevas tiempo sin moverte, mejor aún: es el momento de empezar.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        ¿Qué pasa si no puedo venir un día?
+        <span class="icon">+</span>
+      </div>
+      <div class="faq-a">No pasa nada. Sin cancelaciones ni penalizaciones. Si tienes bono mensual, las sesiones no caducan esa semana — puedes reorganizarte sin problema.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        ¿Qué incluye exactamente el precio?
+        <span class="icon">+</span>
+      </div>
+      <div class="faq-a">El entrenamiento completo con monitor profesional de Siroko Outdoor Club y una consumición después (café, zumo, smoothie o algo más). Sin costes ocultos.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        ¿Puedo venir si aún no trabajo en Siroko?
+        <span class="icon">+</span>
+      </div>
+      <div class="faq-a">¡Sí! El programa está diseñado para el equipo Siroko pero está abierto a cualquier persona. Eso sí, el precio especial de 15€ y la primera sesión gratis son exclusivos para empleados.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">
+        ¿Qué ropa necesito llevar?
+        <span class="icon">+</span>
+      </div>
+      <div class="faq-a">Ropa cómoda para hacer deporte y calzado deportivo. Si la actividad es en la orilla o hay Paddle Surf, se avisa con antelación para que puedas traer bañador. Toalla siempre viene bien.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><span>SIROKO</span> HEALTHY LIFE</div>
+  <div class="footer-links">
+    <a href="#como-funciona">Cómo funciona</a>
+    <a href="#sesion">La sesión</a>
+    <a href="#inscribete">Apúntate</a>
+    <a href="https://sirokoclub.com" target="_blank">Siroko Outdoor Club</a>
+  </div>
+  <p class="footer-copy">© 2025 Siroko Outdoor Club · sirokoclub.com</p>
+</footer>
+
+<script>
+  // Scroll animations for timeline
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 120);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.tl-item').forEach(el => observer.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-q').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Form submit
+  function submitForm(e) {
+    e.preventDefault();
+    const emailInput = document.querySelector('input[type="email"]');
+    const legalCheck = document.getElementById('legal');
+    if (!emailInput.value || !legalCheck.checked) {
+      emailInput.style.borderColor = '#e53e3e';
+      setTimeout(() => emailInput.style.borderColor = '', 1500);
+      return;
+    }
+    document.getElementById('form-body').style.opacity = '0';
+    document.getElementById('form-body').style.transform = 'translateY(-10px)';
+    setTimeout(() => {
+      document.getElementById('form-body').style.display = 'none';
+      const success = document.getElementById('form-success');
+      success.classList.add('show');
+      success.style.animation = 'fadeUp 0.5s ease both';
+    }, 300);
+  }
+</script>
+</body>
+</html>
